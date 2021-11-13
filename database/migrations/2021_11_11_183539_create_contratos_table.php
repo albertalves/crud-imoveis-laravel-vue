@@ -15,6 +15,7 @@ class CreateContratosTable extends Migration
     {
         Schema::create('contratos', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->foreignId('propriedade_id')->constrained('propriedades');
             $table->string('tipo_pessoa', 45);
             $table->string('documento', 45);

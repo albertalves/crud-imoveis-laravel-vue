@@ -15,6 +15,7 @@ class CreatePropriedadesTable extends Migration
     {
         Schema::create('propriedades', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->string('email_proprietario', 255);
             $table->text('rua');
             $table->string('numero', 45)->nullable();
@@ -22,6 +23,7 @@ class CreatePropriedadesTable extends Migration
             $table->string('bairro', 255);
             $table->string('cidade', 255);
             $table->string('estado', 100);
+            $table->boolean('status')->default(0)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
