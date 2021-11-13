@@ -21,4 +21,23 @@ class PropriedadeRepository
     public function createPropriedade(array $data) {
         return $this->entity->create($data);
     }
+
+    public function getPropriedadeByUuid(string $uuid)
+    {
+        return $this->entity->where('uuid', $uuid)->firstOrFail();
+    }
+
+    public function deletePropriedadeByUuid(string $uuid)
+    {
+        $propriedade = $this->getPropriedadeByUuid($uuid);
+
+        return $propriedade->delete();
+    }
+
+    public function updatePropriedadeByUuid(string $uuid, array $data)
+    {
+        $propriedade = $this->getPropriedadeByUuid($uuid);
+
+        return $propriedade->update($data);
+    }
 }

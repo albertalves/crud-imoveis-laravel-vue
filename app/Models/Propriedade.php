@@ -11,6 +11,7 @@ class Propriedade extends Model
     use HasFactory, SoftDeletes;
 
     protected $dates = ['deleted_at'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at']; // não retornar estas colunas na listagem
     public $timestamps = true;
 
     protected $fillable = [

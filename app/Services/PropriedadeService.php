@@ -21,4 +21,19 @@ class PropriedadeService
     public function createPropriedade(array $data){
         return $this->propriedadeRepository->createPropriedade($data);
     }
+
+    public function getPropriedade(string $uuid)
+    {
+        return $this->propriedadeRepository->getPropriedadeByUuid($uuid);
+    }
+
+    public function deletePropriedade(string $uuid)
+    {
+        return $this->propriedadeRepository->deletePropriedadeByUuid($uuid);
+    }
+
+    public function updatePropriedade(string $uuid, array $data)
+    {
+        return $this->propriedadeRepository->updatePropriedadeByUuid($uuid, $data);
+    }
 }
