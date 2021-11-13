@@ -15,11 +15,13 @@ class Propriedade extends Model
 
     protected $fillable = [
         'email_proprietario',
+        'rua',
         'numero',
         'complemento',
         'bairro',
         'cidade',
-        'estado'
+        'estado',
+        'status'
     ];
 }
 
