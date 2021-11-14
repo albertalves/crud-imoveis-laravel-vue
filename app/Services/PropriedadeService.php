@@ -18,7 +18,8 @@ class PropriedadeService
         return $this->propriedadeRepository->getAllPropriedades();
     }
 
-    public function createPropriedade(array $data){
+    public function createPropriedade(array $data)
+    {
         return $this->propriedadeRepository->createPropriedade($data);
     }
 

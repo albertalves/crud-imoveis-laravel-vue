@@ -34,7 +34,7 @@ class PropriedadeController extends Controller
     }
 
 
-    public function show($uuid)
+    public function show(string $uuid)
     {
         $propriedade = $this->propriedadeService->getPropriedade($uuid);
 
@@ -42,7 +42,7 @@ class PropriedadeController extends Controller
     }
 
 
-    public function update(StoreUpdatePropriedade $request, $uuid)
+    public function update(StoreUpdatePropriedade $request, string $uuid)
     {
         $this->propriedadeService->updatePropriedade($uuid, $request->validated());
 
@@ -50,7 +50,7 @@ class PropriedadeController extends Controller
     }
 
 
-    public function destroy($uuid)
+    public function destroy(string $uuid)
     {
         $propriedade = $this->propriedadeService->deletePropriedade($uuid);
 

@@ -15,28 +15,36 @@ class PropriedadeRepository
 
     public function getAllPropriedades()
     {
-        return $this->entity->get();
+        return $this->entity->with('contrato')->get();
     }
 
-    public function createPropriedade(array $data) {
+    public function createPropriedade(array $data) 
+    {
         return $this->entity->create($data);
     }
 
-    public function getPropriedadeByUuid(string $uuid)
+    public function getPropriedadeByUuid(string $uuid, bool $loadContrato = true)
     {
-        return $this->entity->where('uuid', $uuid)->firstOrFail();
+        $q = $this->entity->newQuery();
+
+        $q->where('uuid', $uuid);
+
+        if ($loadContrato) 
+            $q->with('contrato');
+            
+        return $q->firstOrFail();
     }
 
     public function deletePropriedadeByUuid(string $uuid)
     {
-        $propriedade = $this->getPropriedadeByUuid($uuid);
+        $propriedade = $this->getPropriedadeByUuid($uuid, false);
 
         return $propriedade->delete();
     }
 
     public function updatePropriedadeByUuid(string $uuid, array $data)
     {
-        $propriedade = $this->getPropriedadeByUuid($uuid);
+        $propriedade = $this->getPropriedadeByUuid($uuid, false);
 
         return $propriedade->update($data);
     }

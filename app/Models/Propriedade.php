@@ -24,6 +24,11 @@ class Propriedade extends Model
         'estado',
         'status'
     ];
+
+    public function contrato()
+    {
+        return $this->hasOne(Contrato::class);
+    }
 }
 
 
