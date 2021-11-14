@@ -26,6 +26,8 @@ class StoreUpdatePropriedade extends FormRequest
         return [
             'email_proprietario' => 'required|email:rfc,dns',
             'rua'                => 'required',
+            'numero'             => 'nullable',
+            'complemento'        => 'nullable',
             'bairro'             => 'required',
             'cidade'             => 'required',
             'estado'             => 'required',

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Propriedade;
+use Illuminate\Support\Facades\Cache;
 
 class PropriedadeRepository
 {
@@ -14,29 +15,33 @@ class PropriedadeRepository
     }
 
     public function getAllPropriedades()
-    {
-        return $this->entity->with('contrato')->get();
+    {   
+        return Cache::rememberForever('propriedades', function() {
+            return $this->entity->with('contrato')->get();
+        });
     }
 
     public function createPropriedade(array $data) 
     {
+        Cache::forget('propriedades');
+
         return $this->entity->create($data);
     }
 
     public function getPropriedadeByUuid(string $uuid, bool $loadContrato = true)
     {
-        $q = $this->entity->newQuery();
-
-        $q->where('uuid', $uuid);
+        $query = $this->entity->where('uuid', $uuid);
 
         if ($loadContrato) 
-            $q->with('contrato');
+            $query->with('contrato');
             
-        return $q->firstOrFail();
+        return $query->firstOrFail();
     }
 
     public function deletePropriedadeByUuid(string $uuid)
     {
+        Cache::forget('propriedades');
+
         $propriedade = $this->getPropriedadeByUuid($uuid, false);
 
         return $propriedade->delete();
@@ -44,6 +49,8 @@ class PropriedadeRepository
 
     public function updatePropriedadeByUuid(string $uuid, array $data)
     {
+        Cache::forget('propriedades');
+        
         $propriedade = $this->getPropriedadeByUuid($uuid, false);
 
         return $propriedade->update($data);
