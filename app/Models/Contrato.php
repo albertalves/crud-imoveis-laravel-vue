@@ -10,13 +10,7 @@ class Contrato extends Model
     use HasFactory;
 
     public $timestamps = true;
-
-    protected $fillable = [
-        'propriedade_id',
-        'tipo_pessoa',
-        'documento',
-        'email',
-        'nome_completo'
-    ];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at']; // não retornar estas colunas na listagem
+    protected $fillable = ['propriedade_id', 'tipo_pessoa', 'documento', 'email_contratante', 'nome_completo_contratante'];
 
 }

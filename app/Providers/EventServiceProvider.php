@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Models\{
     Propriedade,
+    Contrato
 };
 use App\Observers\{
     PropriedadeObserver,
+    ContratoObserver
 };
 
 use Illuminate\Auth\Events\Registered;
@@ -35,5 +37,6 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Propriedade::observe(PropriedadeObserver::class);
+        Contrato::observe(ContratoObserver::class);
     }
 }
