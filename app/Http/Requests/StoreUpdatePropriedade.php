@@ -24,11 +24,25 @@ class StoreUpdatePropriedade extends FormRequest
     public function rules()
     {
         return [
-            'email_proprietario' => ['required', 'email:rfc,dns'],
-            'rua'                => ['required'],
-            'bairro'             => ['required'],
-            'cidade'             => ['required'],
-            'estado'             => ['required'],
+            'email_proprietario' => 'required|email:rfc,dns',
+            'rua'                => 'required',
+            'bairro'             => 'required',
+            'cidade'             => 'required',
+            'estado'             => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        $message = "O campo :attribute é obrigatório";
+
+        return [
+            'email_proprietario.required'       => $message,
+            'email_contratante.email'           => "Informe um e-mail válido.",
+            'rua.required'                      => $message,
+            'bairro.required'                   => $message,
+            'cidade.required'                   => $message,
+            'estado.required'                   => $message,
         ];
     }
 }
