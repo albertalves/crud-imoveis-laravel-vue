@@ -14,7 +14,7 @@ Route::post('register',     [AuthController::class, 'register']);             //
 
 // middleware => auth:api
 Route::prefix('/v1')->middleware('auth:api')->group(function () {
-    Route::put('/propriedade/{uuid}', [PropriedadeController::class, 'update']);
+    Route::put('/propriedade-status', [PropriedadeController::class, 'update']);
     Route::delete('/propriedade/{uuid}', [PropriedadeController::class, 'destroy']);
     Route::get('/propriedade/{uuid}', [PropriedadeController::class, 'show']);
     Route::post('/propriedades', [PropriedadeController::class, 'store']);
