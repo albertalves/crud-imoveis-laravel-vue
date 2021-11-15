@@ -18,9 +18,9 @@ class PropriedadeController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $propriedades = $this->propriedadeService->getPropriedades();
+        $propriedades = $this->propriedadeService->getPropriedades($request->all());
 
         return PropriedadeResource::collection($propriedades);
     }
@@ -42,11 +42,9 @@ class PropriedadeController extends Controller
     }
 
 
-    public function update(StoreUpdatePropriedade $request, string $uuid)
+    public function update(Request $request)
     {
-        $this->propriedadeService->updatePropriedade($uuid, $request->validated());
-
-        return response()->json(['message' => 'Registro editado com sucesso.'], 200);
+        $this->propriedadeService->updatePropriedadeStatus($request->only(['id']));
     }
 
 

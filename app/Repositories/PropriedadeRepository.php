@@ -14,17 +14,27 @@ class PropriedadeRepository
         $this->entity = $p;
     }
 
-    public function getAllPropriedades()
+    public function getAllPropriedades(array $request)
     {   
-        return Cache::rememberForever('propriedades', function() {
-            return $this->entity->with('contrato')->get();
-        });
+        $query = $this->entity->with('contrato');
+
+        if(isset($request['search'])){
+
+            $query->where('email_proprietario', 'LIKE', "%{$request['search']}%")
+                    ->orWhere('rua', 'LIKE', "%{$request['search']}%")
+                    ->orWhere('numero', 'LIKE', "%{$request['search']}%")
+                    ->orWhere('cidade', 'LIKE', "%{$request['search']}%");
+        }
+
+        if(isset($request['buscarTodas']) && $request['buscarTodas'] == '1'){
+            return $query->get();
+        }
+
+        return $query->paginate(3);
     }
 
     public function createPropriedade(array $data) 
     {
-        Cache::forget('propriedades');
-
         return $this->entity->create($data);
     }
 
@@ -40,19 +50,16 @@ class PropriedadeRepository
 
     public function deletePropriedadeByUuid(string $uuid)
     {
-        Cache::forget('propriedades');
-
         $propriedade = $this->getPropriedadeByUuid($uuid, false);
 
         return $propriedade->delete();
     }
 
-    public function updatePropriedadeByUuid(string $uuid, array $data)
+    /**
+     *  Altera o status da propriedade caso ela tenha um contrato
+     */
+    public function updatePropriedadeStatusByUuid(string $id)
     {
-        Cache::forget('propriedades');
-        
-        $propriedade = $this->getPropriedadeByUuid($uuid, false);
-
-        return $propriedade->update($data);
+        $this->entity->where('id', $id)->update(['status' => 1]);
     }
 }

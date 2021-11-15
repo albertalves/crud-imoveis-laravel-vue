@@ -23,7 +23,8 @@ class StoreContrato extends FormRequest
      */
     public function rules()
     {
-        $tipo = $this->tipo_pessoa == 'f' ? 'cpf|formato_cpf' : 'cnpj|formato_cnpj';
+        $count = strlen(preg_replace('/[^0-9]/', '', $this->documento));
+        $tipo = ($count == 11) ? 'cpf|formato_cpf' : 'cnpj|formato_cnpj';
 
         return [
             'propriedade_id'             => 'required|unique:contratos',
@@ -36,11 +37,11 @@ class StoreContrato extends FormRequest
 
     public function messages()
     {
-        $message = "O campo :attribute é obrigatório";
+        $message = "Campo de preenchimento obrigatório";
 
         return [
             'propriedade_id.required'               => $message,
-            'propriedade_id.unique'                 => 'Já existe uma propriedade com este contrato.',
+            'propriedade_id.unique'                 => 'Esta propriedade já está vinculada a um contrato.',
             'tipo_pessoa.required'                  => $message,
             'documento.required'                    => $message,
             'email_contratante.required'            => $message,

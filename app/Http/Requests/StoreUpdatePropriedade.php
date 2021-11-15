@@ -36,11 +36,11 @@ class StoreUpdatePropriedade extends FormRequest
 
     public function messages()
     {
-        $message = "O campo :attribute é obrigatório";
+        $message = "Campo de preenchimento obrigatório";
 
         return [
             'email_proprietario.required'       => $message,
-            'email_contratante.email'           => "Informe um e-mail válido.",
+            'email_proprietario.email'          => "Informe um e-mail válido.",
             'rua.required'                      => $message,
             'bairro.required'                   => $message,
             'cidade.required'                   => $message,
